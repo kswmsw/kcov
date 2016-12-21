@@ -143,24 +143,12 @@ public:
 		unsigned int extraNeeded = 2;
 		unsigned int lastArg;
 
-		const char *path = getenv("PATH");
+		const char *e = getenv("PATH");
 
-		if (!path)
-			path = "";
-
-		// Validate the getenv output
-		bool ok = true;
-		for (unsigned int i = 0; i < strlen(path); i++) {
-			char cur = path[i];
-
-			if (!isprint(cur)) {
-				ok = false;
-				break;
-			}
-		}
-
-		if (!ok)
-			path = "";
+		if (!e)
+			e = "";
+		char path[strlen(e) + 1];
+		strcpy(path, e);
 
 		std::vector<std::string> paths = split_string(path, ":");
 
