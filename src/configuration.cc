@@ -143,12 +143,14 @@ public:
 		unsigned int extraNeeded = 2;
 		unsigned int lastArg;
 
-		const char *e = getenv("PATH");
+		// Cannot use getenv() securely, see lttng_secure_getenv
+		if (geteuid() != getuid() || getegid() != getgid())
+			panic("kcov should not be a setuid/setgid binary\n");
 
-		if (!e)
-			e = "";
-		char path[strlen(e) + 1];
-		strcpy(path, e);
+		const char *path = getenv("PATH");
+
+		if (!path)
+			path = "";
 
 		std::vector<std::string> paths = split_string(path, ":");
 
