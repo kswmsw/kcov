@@ -143,7 +143,7 @@ public:
 		unsigned int extraNeeded = 2;
 		unsigned int lastArg;
 
-		// Cannot use getenv() securely, see lttng_secure_getenv
+		// Cannot use getenv() securely, google for lttng_secure_getenv()
 		if (geteuid() != getuid() || getegid() != getgid())
 			panic("kcov should not be a setuid/setgid binary\n");
 
