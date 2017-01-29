@@ -25,7 +25,7 @@
 #include <filter.hh>
 #include <libgen.h>
 
-#include "address-verifier.hh"
+#include "disassembler.hh"
 #include "dwarf.hh"
 
 using namespace kcov;
@@ -124,7 +124,7 @@ public:
 	ElfInstance()
 	{
 		m_elf = NULL;
-		m_addressVerifier = IAddressVerifier::create();
+		m_addressVerifier = IDisassembler::create();
 		m_filename = "";
 		m_checksum = 0;
 		m_elfIs32Bit = true;
@@ -808,7 +808,7 @@ private:
 	SegmentList_t m_executableSegments;
 	FileList_t m_gcnoFiles;
 
-	IAddressVerifier *m_addressVerifier;
+	IDisassembler *m_addressVerifier;
 	bool m_verifyAddresses;
 	struct Elf *m_elf;
 	bool m_elfIs32Bit;
